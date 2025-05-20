@@ -16,12 +16,12 @@
     (robot_at l1 loading_bay)
 
     ;; Crates at locations
-    (crate_at c1 loc1)
+    (crate_at c1 loc2)
     (crate_at c2 loc2)
     (crate_at c3 loc3)
-    (crate_at c4 loc4)
-    (crate_at c5 loc5)
-    (crate_at c6 loc6)
+    (crate_at c4 loc2)
+    (crate_at c5 loc3)
+    (crate_at c6 loc1)
 
     ;; Weights
     (= (weight c1) 30)
@@ -45,23 +45,23 @@
     (in_group c5 gB)
 
     ;; Distances (symmetric)
-    (= (distance loading_bay loc1) 20)
-    (= (distance loc1 loading_bay) 20)
+    (= (distance loading_bay loc1) 10)
+    (= (distance loc1 loading_bay) 10)
 
     (= (distance loading_bay loc2) 20)
     (= (distance loc2 loading_bay) 20)
 
-    (= (distance loading_bay loc3) 10)
-    (= (distance loc3 loading_bay) 10)
+    (= (distance loading_bay loc3) 30)
+    (= (distance loc3 loading_bay) 30)
 
-    (= (distance loading_bay loc4) 20)
-    (= (distance loc4 loading_bay) 20)
+    ; (= (distance loading_bay loc4) 20)
+    ; (= (distance loc4 loading_bay) 20)
 
-    (= (distance loading_bay loc5) 30)
-    (= (distance loc5 loading_bay) 30)
+    ; (= (distance loading_bay loc5) 30)
+    ; (= (distance loc5 loading_bay) 30)
 
-    (= (distance loading_bay loc6) 10)
-    (= (distance loc6 loading_bay) 10)
+    ; (= (distance loading_bay loc6) 10)
+    ; (= (distance loc6 loading_bay) 10)
 
     ;; Loading bay initially free
     (loading_bay_free)

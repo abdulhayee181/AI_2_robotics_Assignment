@@ -32,38 +32,82 @@
     (total_time)
   )
 
-  ;; movers can move alone without crate
-  (:action move_mover
-    :parameters (?m - mover ?from - location ?to - location)
-    :precondition (robot_at ?m ?from)
-    :effect (and
-      (not (robot_at ?m ?from))
-      (robot_at ?m ?to)
-      (increase (total_time) (distance ?from ?to))
-    )
+  (:durative-action empty_robot_move
+      :parameters (?m - mover ?from - location ?to - location)
+      :duration (= ?duration (/(distance loading_bay ?to) 10))
+      :condition (and 
+          (at start ( robot_at ?m ?from 
+          ))
+          
+      )
+      :effect (and 
+          (at start (not (robot_at ?m ?from)
+          ))
+          (at end (robot_at ?m ?to
+          ))
+      )
   )
-
-  (:action move_single
+  
+(:durative-action single_mover_trasnport
     :parameters (?m - mover ?from - location ?to - location ?c - crate)
-    :precondition (and
-      (robot_at ?m ?from)
-      (crate_at ?c ?from)
-      (<= (weight ?c) 50)
-      (not (fragile ?c))
-      (or (not (= ?to loading_bay)) (loading_bay_free))
+    :duration (= ?duration (/ (* (distance ?from ?to) (weight ?c)) 100))
+    :condition (and
+        (at start ( crate_at ?c ?from
+        ))
+        (at start (<= (weight ?c) 50))
+        (at start (not (fragile ?c)))
+        (at start (or (not (= ?to loading_bay)) (loading_bay_free)))
+        (at start (robot_at ?m ?from))
     )
-    :effect (and
-      (not (robot_at ?m ?from))
-      (robot_at ?m ?to)
-      (not (crate_at ?c ?from))
-      (crate_at ?c ?to)
-      (increase (total_time) (/ (* (distance ?from ?to) (weight ?c)) 100))
+    :effect (and 
+        (at start (not (robot_at ?m ?from))
+        )
+        (at start (not (crate_at ?c ?from)))
+
+        (at end (crate_at ?c ?to))
+
+        
+        (at end (robot_at ?m ?to)
+        )
     )
-  )
+)
+
+
+
+
+  ;; movers can move alone without crate
+  ; (:action move_mover
+  ;   :parameters (?m - mover ?from - location ?to - location)
+  ;   :precondition (robot_at ?m ?from)
+  ;   :effect (and
+  ;     (not (robot_at ?m ?from))
+  ;     (robot_at ?m ?to)
+  ;     (increase (total_time) (distance ?from ?to))
+  ;   )
+  ; )
+
+  ; (:action move_single
+  ;   :parameters (?m - mover ?from - location ?to - location ?c - crate)
+  ;   :precondition (and
+  ;     (robot_at ?m ?from)
+  ;     (crate_at ?c ?from)
+  ;     (<= (weight ?c) 50)
+  ;     (not (fragile ?c))
+  ;     (or (not (= ?to loading_bay)) (loading_bay_free))
+  ;   )
+  ;   :effect (and
+  ;     (not (robot_at ?m ?from))
+  ;     (robot_at ?m ?to)
+  ;     (not (crate_at ?c ?from))
+  ;     (crate_at ?c ?to)
+  ;     (increase (total_time) (/ (* (distance ?from ?to) (weight ?c)) 100))
+  ;   )
+  ; )
 
   (:action move_double
     :parameters (?m1 - mover ?m2 - mover ?from - location ?to - location ?c - crate)
     :precondition (and
+      (not (=?m1 ?m2))
       (robot_at ?m1 ?from)
       (robot_at ?m2 ?from)
       (crate_at ?c ?from)

@@ -39,8 +39,8 @@
     (= (distance loading_bay loc2) 20)
     (= (distance loc2 loading_bay) 20)
 
-    (= (distance loading_bay loc3) 20)
-    (= (distance loc3 loading_bay) 20)
+    ; (= (distance loading_bay loc3) 20)
+    ; (= (distance loc3 loading_bay) 20)
 
     (loading_bay_free)
   )
