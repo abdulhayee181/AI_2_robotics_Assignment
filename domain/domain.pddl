@@ -24,6 +24,7 @@
     (in_group ?c - crate ?g - group)
     (fragile ?c - crate)
     (can_load_heavy ?l - loader)
+    (group_loaded ?g - group)
   )
 
   (:functions
@@ -97,17 +98,20 @@
 
 
   (:action load
-    :parameters (?l - loader ?c - crate ?loc - location)
+    :parameters (?l - loader ?c - crate ?loc - location ?g - group)
     :precondition (and
       (robot_at ?l ?loc)
       (crate_at ?c ?loc)
       (= ?loc loading_bay)
       (or (<= (weight ?c) 100) (can_load_heavy ?l))
+      ; (in_group ?c ?g)
+      ; (not (group_loaded ?g))
     )
     :effect (and
       (not (crate_at ?c ?loc))
       (loaded ?c)
       (increase (total_time) 5)
+      ; (group_loaded ?g)
     )
   )
 

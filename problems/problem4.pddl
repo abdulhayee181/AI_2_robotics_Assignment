@@ -43,6 +43,8 @@
     (in_group c3 gB)
     (in_group c4 gB)
     (in_group c5 gB)
+    (in_group c6 gB)
+
 
     ;; Distances (symmetric)
     (= (distance loading_bay loc1) 10)

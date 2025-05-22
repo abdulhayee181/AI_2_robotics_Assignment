@@ -2,7 +2,7 @@
   (:domain warehouse)
 
   (:objects
-    r1 - mover
+    r2 r1 - mover
     l1 - loader
     c1 c2 - crate
     loading_bay loc1 loc2 - location
@@ -12,6 +12,7 @@
   (:init
     (robot_at r1 loading_bay)
     (robot_at l1 loading_bay)
+    (robot_at r2 loading_bay)
 
     (crate_at c1 loc1)
     (crate_at c2 loc2)
